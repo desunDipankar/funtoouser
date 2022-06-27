@@ -113,10 +113,10 @@ export default function GetGamesByTag({ tagId, tagName }) {
             <>
 
                 <TouchableOpacity onPress={() => gotoGameDetails(data)}>
-                    <View style={styles.item}
+                    <View style={styles.item}  
                     >
                         <Image
-
+                            //  key={data.id}
                             style={{ height: '100%', width: '100%' }}
                             source={{ uri: image_url }}
                             resizeMode="cover"
@@ -128,7 +128,7 @@ export default function GetGamesByTag({ tagId, tagName }) {
         )
     }
 
-
+    
     // const renderListItem = ({ item }) => {
     //     // <View key={item.id.toString()}><Text>Game Slug {item.name}</Text></View>
     //     return (
@@ -183,6 +183,7 @@ export default function GetGamesByTag({ tagId, tagName }) {
                                             />
                                         </View>
 
+                                        
                                         <View style={styles.box} >
                                             {/* <Text style={styles.title}>{tagName}</Text> */}
                                             <View style={styles.galleryContainer}>
@@ -244,7 +245,7 @@ export default function GetGamesByTag({ tagId, tagName }) {
                                         {/* <MenuSide /> */}
                                         <View style={{ width: '100%', height: 300 }}>
                                             <Carousel
-                                                pagination={Pagination}
+                                                // pagination={Pagination}
                                                 renderItem={renderSliderItem}
                                                 data={gameData}
                                             />

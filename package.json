@@ -53,6 +53,8 @@
 		"react-native-web": "0.17.1",
 		"react-native-webview": "11.13.0",
 		"react-native-x2-carousel": "^1.0.1",
+		"react-native-youtube": "^2.0.2",
+		"react-native-youtube-iframe": "^2.2.2",
 		"rn-tooltip": "^3.0.1"
 	},
 	"devDependencies": {

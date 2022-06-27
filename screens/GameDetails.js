@@ -32,7 +32,10 @@ import AwesomeAlert from "react-native-awesome-alerts";
 import { WishlistCreate } from "../services/WishlistService";
 import CustomImage from "../components/CustomImage";
 import ImageView from "react-native-image-viewing";
-import { Video } from "expo-av";
+// import { Video } from "expo-av";
+// import YouTube from 'react-native-youtube';
+import YoutubePlayer from 'react-native-youtube-iframe';
+
 
 export default class GameDetails extends React.Component {
   static contextType = AppContext;
@@ -68,6 +71,8 @@ export default class GameDetails extends React.Component {
       isGalleryImageViewerOpen: false,
       isPlaybackModalOpen: false,
       playbackURI: undefined,
+      videoid: '',
+      splitUrl:''
 
     };
 
@@ -76,7 +81,21 @@ export default class GameDetails extends React.Component {
 
     Promise.all([this.loadGameDetails(), this.WishlistCategory(), ]);
   };
-
+  videoIdRtrive = () => {
+    //  let splitUrl = this.state.GameDetails.game[0].video_link
+    this.setState({
+      splitUrl :  this.state.GameDetails.game[0].video_link
+    }, () => {
+      let urlsplit = this.state.splitUrl.split('=')
+      this.setState({
+        videoid:urlsplit[1]
+      }, () => {
+        // console.log('video code ' ,  this.state.videoid)
+      })
+      // console.log('spilt url ' , this.state.splitUrl)
+    })
+      
+    }
   toggleCategoryModal = () =>
     this.setState({ isOpenCategoryModal: !this.state.isOpenCategoryModal });
 
@@ -115,6 +134,10 @@ export default class GameDetails extends React.Component {
             isLoading: false,
           },
           // () => this.WishlistCategory()
+          () => {
+            this.videoIdRtrive()
+            console.log('video link>>>>>>>>>>>>' ,this.state.GameDetails.game[0].video_link)
+          }
         );
       })
       .catch((err) => {
@@ -624,7 +647,7 @@ export default class GameDetails extends React.Component {
           <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
             <View style={[styles.modalContainer, { backgroundColor: "#000" }]}>
               <View style={styles.playbackModalBody}>
-                <Video
+                {/* <Video
                   useNativeControls={true}
                   resizeMode="contain"
                   isLooping={false}
@@ -634,7 +657,17 @@ export default class GameDetails extends React.Component {
                   style={styles.video}
                 // onLoadStart={() => console.log("Started***********")}
                 // onLoad={() => console.log("Loaded***********")}
-                />
+                /> */}
+
+                {/* youtube video play */}
+                <View>
+               <YoutubePlayer
+                    height={300}
+                    width={windowwidth}
+                  play={true}
+                  videoId={this.state.videoid}
+                  />
+                  </View>
                 <TouchableOpacity
                   style={[styles.closeButton, { top: 10, right: 10 }]}
                   onPress={this.closePlaybackModal}
@@ -823,7 +856,7 @@ const styles = StyleSheet.create({
   playbackModalBody: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#000",
+    // backgroundColor: "#000",
     width: windowwidth,
     height: windowHeight,
     padding: 15,

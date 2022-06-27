@@ -165,6 +165,7 @@ const OtpVerification = ({ route }) => {
 		return () => clearInterval(timer);
 	}, [timerValue]);
 
+	
 	return (
 		<SafeAreaView style={styles.container}>
 			<FirebaseRecaptchaVerifierModal
